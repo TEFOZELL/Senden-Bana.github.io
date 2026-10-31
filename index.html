@@ -105,20 +105,44 @@
         <a href="#" onclick="showPage('mektup')">Sana Mesajım</a>
     </div>
 
-        <!-- 1. SAYFA: ANA SAYFA -->
+          <!-- 1. SAYFA: ANA SAYFA -->
     <div id="ana-sayfa" class="page-content active-page">
         <div class="main-card">
-            <!-- Kalp Efekti İçin Alan -->
             <div class="heart-bg" id="heart-container"></div>
-            
             <h1 class="love-title">Hoş Geldin Sevgilim ❤️</h1>
+            <p class="love-text">Burası tamamen bize özel, sadece bizim dünyamız... Fotoğraflarımıza tıklayarak o günkü anılarımıza göz atabilirsin.</p>
             
-            <!-- Burası Sizin Fotoğraf Alanınız -->
-            <div class="photo-frame">
-                <img src="https://unsplash.com" id="ana-foto" alt="Biz">
+            <!-- Fotoğraf Albümü Alanı -->
+            <div class="album-grid">
+                <!-- 1. Fotoğraf -->
+                <div class="album-item" onclick="openNotebook('https://unsplash.com', 'İlk Tanıştığımız Gün', 'Bu fotoğrafta gözlerinin içine ilk kez bu kadar yakından bakmıştım. Kalbimin sesini duyacaksın diye çok korktuğum o unutulmaz an...')">
+                    <img src="https://unsplash.com" alt="Anı 1">
+                    <div class="album-desc">İlk Tanıştığımız Gün</div>
+                </div>
+                
+                <!-- 2. Fotoğraf -->
+                <div class="album-item" onclick="openNotebook('https://unsplash.com', 'İlk Kahve Randevumuz', 'Heyecanlanıp kahvemi üstüme döktüğüm ama senin o tatlı gülüşünle her şeyi unutturduğun o güzel gün.')">
+                    <img src="https://unsplash.com" alt="Anı 2">
+                    <div class="album-desc">İlk Kahve Randevumuz</div>
+                </div>
             </div>
-            
-            <p class="love-text">Burası tamamen bize özel, sadece bizim dünyamız... Sol üstteki menüyü kullanarak bizim için hazırladığım diğer sürprizleri görebilirsin.</p>
+        </div>
+    </div>
+
+    <!-- Pembe Defter Sayfası Modalı (Popup) -->
+    <div id="notebook-modal" class="notebook-overlay" onclick="closeNotebook()">
+        <div class="notebook-page" onclick="event.stopPropagation()">
+            <button class="close-notebook" onclick="closeNotebook()">×</button>
+            <div class="notebook-margin"></div>
+            <div class="notebook-content">
+                <div class="notebook-photo-frame">
+                    <img id="notebook-img" src="" alt="Anı">
+                </div>
+                <h2 id="notebook-title"></h2>
+                <div class="notebook-lines">
+                    <p id="notebook-text"></p>
+                </div>
+            </div>
         </div>
     </div>
 
