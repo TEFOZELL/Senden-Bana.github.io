@@ -16,31 +16,13 @@
             background-color: #0b090a;
             color: #f5f3f4;
             overflow-x: hidden;
-        }<!-- FOTOĞRAF ALBÜMÜ (ANA SAYFA) -->
-<div class="album-container">
-  <!-- Fotoğraf 1 -->
-  <div class="album-item" onclick="openNotebook('gorsel1.jpg', 'Buraya ilk fotoğrafın altına gelecek tatlı, romantik notunu yazabilirsin aga. İlk buluşmamız, iyi ki varsın...')">
-    <img src="gorsel1.jpg" alt="Anı 1">
-    <div class="item-desc">İlk Günümüz ✨</div>
-  </div>
+     <!-- DİNAMİK FOTOĞRAF ALBÜMÜ -->
+<div id="dynamicAlbum" class="album-container"></div>
 
-  <!-- Fotoğraf 2 -->
-  <div class="album-item" onclick="openNotebook('gorsel2.jpg', 'İkinci fotoğrafın açıklaması... Birlikte izlediğimiz ilk filmin hatırası.')">
-    <img src="gorsel2.jpg" alt="Anı 2">
-    <div class="item-desc">Sinema Keyfi 🎬</div>
-  </div>
-  
-  <!-- İstediğin kadar fotoğrafı bu şekilde çoğaltabilirsin -->
-</div>
-
-<!-- AÇILIR PEMBE DEFTER MODALI -->
+<!-- AÇILIR PEMBE DEFTER MODALI (Aynen Kalıyor) -->
 <div id="notebookModal" class="notebook-overlay" onclick="closeNotebook()">
-  <!-- Defter Sayfası Tasarımı -->
   <div class="notebook-page" onclick="event.stopPropagation()">
-    <!-- Kapatma Butonu (Defterin köşesinde) -->
     <span class="close-btn" onclick="closeNotebook()">&times;</span>
-    
-    <!-- Defterin Çizgileri ve Spiral Efekti İçin Sol Boşluk -->
     <div class="notebook-lines">
       <div class="notebook-photo-wrapper">
         <img id="modalImg" src="" alt="Büyütülmüş Görsel">
@@ -50,122 +32,124 @@
   </div>
 </div>
 
-<style>
-/* --- ALBÜM GRID TASARIMI --- */
-.album-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.album-item {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.album-item:hover {
-  transform: translateY(-5px);
-}
-
-.album-item img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.item-desc {
-  padding: 15px;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #333;
-}
-
-/* --- PEMBE DEFTER MODAL STİLLERİ --- */
-.notebook-overlay {
-  display: none; /* Varsayılan olarak gizli */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Açık Pembe Defter Sayfası */
-.notebook-page {
-  background-color: #ffe5ec; /* Açık pembe defter rengi */
-  width: 90%;
-  max-width: 500px;
-  min-height: 550px;
-  padding: 30px 40px;
-  border-radius: 4px;
-  box-shadow: 5px 5px 25px rgba(0,0,0,0.2);
-  position: relative;
-  border-left: 15px solid #ffb3c6; /* Defterin spiral/cilt kısmı efekti */
-}
-
-/* Defter Satır Çizgileri Grafiği */
-.notebook-lines {
-  background: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 100% 30px; /* Satır aralığı */
-  height: 100%;
-  padding-top: 10px;
-}
-
-.notebook-photo-wrapper {
-  background: white;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transform: rotate(-1deg); /* Doğal dursun diye hafif eğik polaroid havası */
-  margin-bottom: 25px;
-}
-
-.notebook-photo-wrapper img {
-  width: 100%;
-  height: auto;
-  max-height: 300px;
-  object-fit: contain;
-  display: block;
-}
-
-/* El Yazısı Fontu Efekti */
-.notebook-text {
-  font-family: 'Caveat', 'Comic Sans MS', cursive; /* El yazısı fontları */
-  font-size: 22px;
-  line-height: 30px;
-  color: #4a4a4a;
-  padding: 0 10px;
-  margin: 0;
-}
-
-/* Kapatma Butonu */
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 30px;
-  color: #ff85a1;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.close-btn:hover {
-  color: #ff5c8a;
-}
-</style>
-
 <script>
+<!-- FOTOĞRAF ALBÜMÜ (ÖZEL İSİMLİ & .JPEG UZANTILI) -->
+<div class="album-container">
+
+  <!-- 1. Bayram -->
+  <div class="album-item" onclick="openNotebook('bayram.jpeg', 'Birlikte geçirdiğimiz o güzel bayram günü... Her günümüz bayram tadında olsun sevgilim. 🌸')">
+    <img src="bayram.jpeg" alt="Bayram">
+    <div class="item-desc">Bayram Anısı ✨</div>
+  </div>
+
+  <!-- 2. Ev Ziyareti 2 -->
+  <div class="album-item" onclick="openNotebook('ev-ziyareti-2.jpeg', 'Ev hali, en doğal ve en huzurlu olduğumuz anlardan biri... 🏡')">
+    <img src="ev-ziyareti-2.jpeg" alt="Ev Ziyareti 2">
+    <div class="item-desc">Ev Ziyareti #2 💕</div>
+  </div>
+
+  <!-- 3. Kar Topu -->
+  <div class="album-item" onclick="openNotebook('kar-topu.jpeg', 'Hava buz gibiydi ama seninle olmak içimi sıcacık yapmaya yetti sevgilim. ❄️☃️')">
+    <img src="kar-topu.jpeg" alt="Kar Topu">
+    <div class="item-desc">Kar Topu Eğlencesi ❄️</div>
+  </div>
+
+  <!-- 4. Yılbaşı -->
+  <div class="album-item" onclick="openNotebook('yilbasi.jpeg', 'Yeni yıla seninle girmek, geleceğe umutla bakmamı sağlıyor. İyi ki varsın. 🎄✨')">
+    <img src="yilbasi.jpeg" alt="Yılbaşı">
+    <div class="item-desc">Yeni Yıl Hatırası 🎄</div>
+  </div>
+
+  <!-- 5. Necatiii -->
+  <div class="album-item" onclick="openNotebook('necatiii.jpeg', 'Bu karenin yeri bende çok ayrı, yüzümüzü güldüren o tatlı anlardan. 😂❤️')">
+    <img src="necatiii.jpeg" alt="Necatiii">
+    <div class="item-desc">Necatiii Kedimiz 🐾</div>
+  </div>
+
+  <!-- 6. Celal Bayar -->
+  <div class="album-item" onclick="openNotebook('celal-bayar.jpeg', 'Celal Bayar taraflarındaki o güzel günümüz... Her köşede bir anımız var. 🏫')">
+    <img src="celal-bayar.jpeg" alt="Celal Bayar">
+    <div class="item-desc">Celal Bayar Yolları 🗺️</div>
+  </div>
+
+  <!-- 7. Zippolar -->
+  <div class="album-item" onclick="openNotebook('zippolar.jpeg', 'Bizim için anlamı olan, o ateş gibi parlayan detaylar... 🔥')">
+    <img src="zippolar.jpeg" alt="Zippolar">
+    <div class="item-desc">Zippolarımız 🔥</div>
+  </div>
+
+  <!-- 8. Ev Ziyareti -->
+  <div class="album-item" onclick="openNotebook('ev-ziyareti.jpeg', 'Birlikte zamanın nasıl akıp gittiğini anlamadığımız o ilk ev ziyareti... 💖')">
+    <img src="ev-ziyareti.jpeg" alt="Ev Ziyareti">
+    <div class="item-desc">İlk Ev Ziyareti 🏡</div>
+  </div>
+
+  <!-- 9. İlk Tıraş -->
+  <div class="album-item" onclick="openNotebook('ilk-tras.jpeg', 'Hayatımın en özel ve en unutulmaz anlarından biriydi, ellerinin değdiği her şey güzelleşiyor. ✂️❤️')">
+    <img src="ilk-tras.jpeg" alt="İlk Tıraş">
+    <div class="item-desc">İlk Tıraş Hatırası ✂️</div>
+  </div>
+
+  <!-- 10. Amfi Öpücük -->
+  <div class="album-item" onclick="openNotebook('amfi-opucuk.jpeg', 'Dünyanın en güzel, en masum öpücüğü... Zaman o an bizim için durmuştu. 💋✨')">
+    <img src="amfi-opucuk.jpeg" alt="Amfi Öpücük">
+    <div class="item-desc">Amfi Öpücüğü 💋</div>
+  </div>
+
+  <!-- 11. Kirli Eller -->
+  <div class="album-item" onclick="openNotebook('kirli-eller.jpeg', 'Ellerimiz kirli olsa da kalplerimiz hep bembeyaz ve yan yana kalacak sevgilim. 🤝')">
+    <img src="kirli-eller.jpeg" alt="Kirli Eller">
+    <div class="item-desc">Kirli Eller 🤝</div>
+  </div>
+
+  <!-- 12. Ekim İlk Öpücük -->
+  <div class="album-item" onclick="openNotebook('-ekim-ilkopucuk.jpeg', 'O güzel Ekim gününde kalbimin nasıl yerinden çıkacak gibi çarptığını bir bilsen... 🍂❤️')">
+    <img src="-ekim-ilkopucuk.jpeg" alt="Ekim İlk Öpücük">
+    <div class="item-desc">Ekim İlk Öpücük 🍂</div>
+  </div>
+
+  <!-- 13. Omzumda Uyumuşsun -->
+  <div class="album-item" onclick="openNotebook('omzumda-uyumussun.jpeg', 'Benim en güvenli limanım senin yanın, senin en huzurlu uykun benim omzum... En sevdiğim karelerden. 💤🧸')">
+    <img src="omzumda-uyumussun.jpeg" alt="Omzumda Uyumuşsun">
+    <div class="item-desc">Omzumda Uyumuşsun 💤</div>
+  </div>
+
+  <!-- 14. Omzumda Uyuyakalmış -->
+  <div class="album-item" onclick="openNotebook('omzumda-uyuyakalmis.jpeg', 'Nefesinin sesini dinleyerek seni izlemek dünyanın en büyük huzuru sevgilim. 🤍')">
+    <img src="omzumda-uyuyakalmis.jpeg" alt="Omzumda Uyuyakalmış">
+    <div class="item-desc">Omzumda Uyuyakalmış 🧸</div>
+  </div>
+
+  <!-- 15. Kapının Önündeyim -->
+  <div class="album-item" onclick="openNotebook('kapinin-onundeyim.jpeg', 'Seni görmek için kapıda beklediğim o heyecanlı dakikalar... Kapı her açıldığında dünyaya yeniden geliyorum. 🚪✨')">
+    <img src="kapinin-onundeyim.jpeg" alt="Kapının Önündeyim">
+    <div class="item-desc">Kapının Önündeyim 🚪</div>
+  </div>
+
+  <!-- 16. İlk Yemek -->
+  <div class="album-item" onclick="openNotebook('ilk-yemek.jpeg', 'Karşılıklı yediğimiz o ilk yemek... Paylaştığımız ilk lokmayla başlayan bu yolculuk ömür boyu sürsün. 🍽️❤️')">
+    <img src="ilk-yemek.jpeg" alt="İlk Yemek">
+    <div class="item-desc">İlk Yemek 🍽️</div>
+  </div>
+
+</div>
+
+];
+
+// Albümü Otomatik Oluşturan JavaScript Döngüsü
+const albumContainer = document.getElementById('dynamicAlbum');
+
+for (let i = 1; i <= 16; i++) {
+  const photoIndex = i - 1;
+  const itemHTML = `
+    <div class="album-item" onclick="openNotebook('gorsel${i}.jpg', '${photoNotes[photoIndex]}')">
+      <img src="gorsel${i}.jpg" alt="Anı ${i}">
+      <div class="item-desc">Anı #${i} ❤️</div>
+    </div>
+  `;
+  albumContainer.innerHTML += itemHTML;
+}
+
 // Defteri Açma Fonksiyonu
 function openNotebook(imageSrc, captionText) {
   const modal = document.getElementById('notebookModal');
@@ -175,15 +159,16 @@ function openNotebook(imageSrc, captionText) {
   modalImg.src = imageSrc;
   modalCaption.textContent = captionText;
   
-  modal.style.display = 'flex'; // Modalı görünür yap
+  modal.style.display = 'flex';
 }
 
 // Defteri Kapatma Fonksiyonu
 function closeNotebook() {
   const modal = document.getElementById('notebookModal');
-  modal.style.display = 'none'; // Modalı gizle
+  modal.style.display = 'none';
 }
 </script>
+
 
 
         /* Sol Üst Hamburger Menü Butonu */
