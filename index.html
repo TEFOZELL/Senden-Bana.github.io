@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizim Hikayemiz</title>
+    <style>
+        /* Genel Sayfa Ayarları */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0b090a;
+            color: #f5f3f4;
+            overflow-x: hidden;
+        }
+
+        /* Sol Üst Hamburger Menü Butonu */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .menu-btn div {
+            width: 30px;
+            height: 4px;
+            background-color: #e5383b;
+            border-radius: 2px;
+            transition: 0.4s;
+        }
+
+        /* Açılır Yan Menü (Sidebar) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; /* İlk başta gizli */
+            width: 250px;
+            height: 100%;
+            background-color: #161a1d;
+            z-index: 999;
+            transition: 0.4s;
+            padding-top: 80px;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+        }
+        .sidebar.active {
+            left: 0; /* Menü açılınca görünecek */
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px 25px;
+            color: #f5f3f4;
+            text-decoration: none;
+            font-size: 18px;
+            border-bottom: 1px solid #ba181b;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #ba181b;
+            padding-left: 35px;
+        }
+
+        /* Sayfa İçerik Alanları */
+        .page-content {
+            display: none; /* Sayfalar ilk başta gizli */
+            padding: 100px 20px;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .page-content.active-page {
+            display: block; /* Sadece aktif sayfa görünür */
+        }
+
+        /* Sayfa Başlıkları */
+        h1 {
+            color: #e5383b;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3 Çizgi Hamburger Menü Butonu -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
+
+    <!-- Yan Menü Linkleri (Sayfa İsimlerini Buraya Yazıyoruz) -->
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="showPage('ana-sayfa')">Ana Sayfa</a>
+        <a href="#" onclick="showPage('sayac')">Bizim Zamanımız</a>
+        <a href="#" onclick="showPage('galeri')">Anılarımız</a>
+        <a href="#" onclick="showPage('mektup')">Sana Mesajım</a>
+    </div>
+
+    <!-- 1. SAYFA: ANA SAYFA -->
+    <div id="ana-sayfa" class="page-content active-page">
+        <h1>Hoş Geldin Sevgilim</h1>
+        <p>Burası tamamen bize özel, bizim dünyamız...</p>
+    </div>
+
+    <!-- 2. SAYFA: SAYAÇ SAYFASI -->
+    <div id="sayac" class="page-content">
+        <h1>Bizim Zamanımız</h1>
+        <p>Buraya seninle geçen her saniyeyi sayan o özel sayacı ekleyeceğiz kanka.</p>
+    </div>
+
+    <!-- 3. SAYFA: GALERİ SAYFASI -->
+    <div id="galeri" class="page-content">
+        <h1>Anılarımız</h1>
+        <p>Buraya beraber çekildiğimiz en güzel fotoğrafları dizeceğiz.</p>
+    </div>
+
+    <!-- 4. SAYFA: MEKTUP SAYFASI -->
+    <div id="mektup" class="page-content">
+        <h1>Sana Mesajım</h1>
+        <p>Buraya ona yazmak istediğin o duygusal mektubu konduracağız.</p>
+    </div>
+
+    <!-- Menünün ve Sayfaların Çalışmasını Sağlayan JavaScript Kodları -->
+    <script>
+        // 3 çizgiye basınca menüyü açıp kapatan fonksiyon
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Menüden bir sayfaya tıklayınca o sayfayı açan fonksiyon
+        function showPage(pageId) {
+            // Önce tüm sayfaları gizle
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+            });
+
+            // Tıklanan sayfayı göster
+            document.getElementById(pageId).classList.add('active-page');
+
+            // Sayfa açıldıktan sonra yan menüyü otomatik kapat
+            toggleMenu();
+        }
+    </script>
+
+</body>
+</html>
