@@ -150,7 +150,31 @@
 
             // Sayfa açıldıktan sonra yan menüyü otomatik kapat
             toggleMenu();
-        }
+        }// Sizin özel başlangıç tarihiniz: 12 Aralık 2024 saat 23:00
+const loveStartDate = new Date(2024, 11, 12, 23, 0, 0); 
+
+function updateLoveCounter() {
+  const now = new Date();
+  const difference = now - loveStartDate; // Aradaki milisaniye farkı
+
+  // Zaman dönüşümleri
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  // Ekrana yazdırma (Sayılar tek haneliyse başına 0 koyar)
+  document.getElementById('days').textContent = days < 10 ? '0' + days : days;
+  document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
+  document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+  document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+}
+
+// Sayacın her saniye yenilenmesini sağla
+setInterval(updateLoveCounter, 1000);
+// Sayfa ilk açıldığında sıfır görünmesin diye hemen bir kere çalıştır
+updateLoveCounter();
+
     </script>
 
 </body>
