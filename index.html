@@ -115,27 +115,21 @@
         <h1>Bizim Zamanımız</h1>
         <p>Buraya seninle geçen her saniyeyi sayan o özel sayacı ekleyeceğiz kanka.</p>
         
-<div class="love-counter-box">
-  <h2>Bizim Yolculuğumuz Başlayalı... ❤️</h2>
-  <div class="counter-display">
-    <div class="counter-item">
-      <span id="days">00</span>
-      <p>Gün</p>
-    </div>
-    <div class="counter-item">
-      <span id="hours">00</span>
-      <p>Saat</p>
-    </div>
-    <div class="counter-item">
-      <span id="minutes">00</span>
-      <p>Dakika</p>
-    </div>
-    <div class="counter-item">
-      <span id="seconds">00</span>
-      <p>Saniye</p>
-    </div>
+<!-- YENİ DIJITAL SEVGİLİ SAYACI -->
+<div class="digital-love-counter">
+  <h2>Bizim Yolculuğumuz ❤️</h2>
+  
+  <!-- Üst Kısım: Büyük ve Yan Yana Zaman (Saat:Dakika:Saniye:Salise) -->
+  <div class="main-time-display" id="mainTimeDisplay">
+    00:00:00:00
+  </div>
+  
+  <!-- Alt Kısım: Küçük Tarih (Yıl, Ay, Gün) -->
+  <div class="sub-date-display" id="subDateDisplay">
+    0 Yıl 0 Ay 0 Gün
   </div>
 </div>
+
 
     </div>
 
@@ -174,30 +168,106 @@
 
             // Sayfa açıldıktan sonra yan menüyü otomatik kapat
             toggleMenu();
-        }// Sizin özel başlangıç tarihiniz: 12 Aralık 2024 saat 23:00
-const loveStartDate = new Date(2024, 11, 12, 23, 0, 0); 
-
-function updateLoveCounter() {
-  const now = new Date();
-  const difference = now - loveStartDate; // Aradaki milisaniye farkı
-
-  // Zaman dönüşümleri
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-  // Ekrana yazdırma (Sayılar tek haneliyse başına 0 koyar)
-  document.getElementById('days').textContent = days < 10 ? '0' + days : days;
-  document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
-  document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
-  document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+/* --- YENİ DİJİTAL SAYAÇ TASARIMI --- */
+.digital-love-counter {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 20px;
+  max-width: 650px;
+  margin: 40px auto;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+  border: 2px solid #ffe5ec;
 }
 
-// Sayacın her saniye yenilenmesini sağla
-setInterval(updateLoveCounter, 1000);
-// Sayfa ilk açıldığında sıfır görünmesin diye hemen bir kere çalıştır
-updateLoveCounter();
+.digital-love-counter h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #ff5c8a;
+  margin-bottom: 15px;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+/* Üstteki Devasa Yan Yana Saat Kısmı */
+.main-time-display {
+  font-family: 'Courier New', Courier, monospace; /* Dijital saat havası verir */
+  font-size: 54px; /* İstediğin gibi büyük format */
+  font-weight: bold;
+  color: #ff1744;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+/* Alttaki Küçük Yıl Ay Gün Kısmı */
+.sub-date-display {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  color: #666;
+  font-weight: 500;
+  background: #ffe5ec;
+  padding: 8px 20px;
+  border-radius: 30px;
+  display: inline-block;
+}
+// Başlangıç Tarihi: 12 Aralık 2024 saat 23:00
+const startDate = new Date(2024, 11, 12, 23, 0, 0);
+
+function updateDigitalCounter() {
+  const now = new Date();
+  
+  // 1. KISIM: Gelişmiş Yıl, Ay, Gün Hesaplama (Takvime göre tam hesap yapar)
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  let days = now.getDate() - startDate.getDate();
+
+  // Eğer saat henüz başlangıç saatine gelmediyse günü 1 eksilt
+  let hoursDiff = now.getHours() - startDate.getHours();
+  let minutesDiff = now.getMinutes() - startDate.getMinutes();
+  let secondsDiff = now.getSeconds() - startDate.getSeconds();
+  let msDiff = now.getMilliseconds() - startDate.getMilliseconds();
+
+  if (hoursDiff < 0 || (hoursDiff === 0 && minutesDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff === 0 && msDiff < 0)) {
+    days--;
+  }
+
+  // Gün eksiye düşerse bir önceki aya git ve o ayın kaç çektiğini hesaba kat
+  if (days < 0) {
+    months--;
+    const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += previousMonth.getDate();
+  }
+
+  // Ay eksiye düşerse yılı eksilt
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  // 2. KISIM: Saat, Dakika, Saniye ve Salise Hesaplama
+  const totalMs = now - startDate;
+  
+  const totalHours = Math.floor(totalMs / (1000 * 60 * 60));
+  const displayHours = totalHours % 24;
+  
+  const displayMinutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
+  const displaySeconds = Math.floor((totalMs % (1000 * 60)) / 1000);
+  
+  // Salise (Milisaniyenin ilk iki hanesi: 00-99 arası)
+  const displayCentiseconds = Math.floor((totalMs % 1000) / 10);
+
+  // Sayıları iki haneli yapma formatı (Örn: 05)
+  const fH = displayHours < 10 ? '0' + displayHours : displayHours;
+  const fM = displayMinutes < 10 ? '0' + displayMinutes : displayMinutes;
+  const fS = displaySeconds < 10 ? '0' + displaySeconds : displaySeconds;
+  const fCS = displayCentiseconds < 10 ? '0' + displayCentiseconds : displayCentiseconds;
+
+  // Ekrana yazdırma işlemleri
+  document.getElementById('mainTimeDisplay').textContent = `${fH}:${fM}:${fS}:${fCS}`;
+  document.getElementById('subDateDisplay').textContent = `${years} Yıl ${months} Ay ${days} Gün`;
+}
+
+// Salisenin akıcı görünmesi için sayacı her 10 milisaniyede bir (ışık hızında) yeniliyoruz
+setInterval(updateDigitalCounter, 10);
 
     </script>
 
