@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizim Dünyamız ❤️</title>
-    <!-- Google Fonts el yazısı fontu -->
+    <!-- Google'da aratınca çıkacak olan isminiz -->
+    <title>Tefozell-SendenBana ❤️</title>
+    
+    <!-- Google Arama Motoru Ayarları -->
+    <meta name="description" content="Tefozell-SendenBana - Bizim yolculuğumuz, anılarımız ve saniye saniye akan zamanımız.">
+    <meta name="keywords" content="Tefozell-SendenBana, tefozell senden bana, aşk sayacı, anılarımız">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Google Search Console Doğrulama Kodu (Kodu alınca content içine yapıştırırsın) -->
+    <meta name="google-site-verification" content="BURAYA_SEARCH_CONSOLE_DAN_ALACAGIN_KODU_YAPISTIR" />
+
+    <!-- Google Fonts ve Kısayol Logosu (Favicon) -->
     <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="bayram.jpeg">
     
     <style>
         /* --- GENEL SİTE TASARIMI --- */
@@ -13,7 +24,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #fff0f3; /* Sitenin ana arka planı yumuşak pembe tonu */
+            background-color: #fff0f3;
             color: #333;
         }
 
@@ -44,7 +55,7 @@
             padding-top: 80px;
             border-right: 3px solid #ffe5ec;
             z-index: 2000;
-            display: none; /* JavaScript ile açılıp kapanacak */
+            display: none; /* JS ile açılıp kapanacak */
         }
 
         .sidebar a {
@@ -72,7 +83,7 @@
             text-align: center;
         }
 
-        /* --- YENİ DİJİTAL SAYAÇ TASARIMI --- */
+        /* --- DİJİTAL SAYAÇ TASARIMI --- */
         .digital-love-counter {
             background: #ffffff;
             border-radius: 20px;
@@ -212,6 +223,47 @@
             color: #ff85a1;
             cursor: pointer;
         }
+
+        /* --- SAĞ ALTAKİ SABİT MÜZİK BUTONU --- */
+        .floating-player {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: #ff5c8a;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(255, 92, 138, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 5000;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .floating-player:hover {
+            transform: scale(1.1);
+            background-color: #ff1744;
+        }
+
+        .floating-player span {
+            color: white;
+            font-size: 24px;
+            font-family: sans-serif;
+            user-select: none;
+            margin-left: 2px;
+        }
+
+        .floating-player.playing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -262,188 +314,166 @@
                 <img src="yılbası.jpeg" alt="yılbası">
                 <div class="item-desc">Yeni Yıl Hatırası 🎄</div>
             </div>
-            <div class="album-item" onclick="openNotebook('necatııı.jpeg', 'Bu karenin yeri bende çok ayrı, yüzümüzü güldüren o tatlı anlardan. 😂❤️')">
-                <img src="necatııı.jpeg" alt="necatııı">
-                <div class="item-desc">Necatııı 🐾</div>
-            </div>
-            <div class="album-item" onclick="openNotebook('celal-bayar.jpeg', 'Celal Bayar taraflarındaki o güzel günümüz... 🏫')">
-                <img src="celal-bayar.jpeg" alt="celal-bayar">
-                <div class="item-desc">Celal Bayar Anısı 🗺️</div>
-            </div>
-            <div class="album-item" onclick="openNotebook('zıppolar.jpeg', 'Bizim için anlamı olan, o ateş gibi parlayan detaylar... 🔥')">
-                <img src="zıppolar.jpeg" alt="zıppolar">
-                <div class="item-desc">Zıppolarımız 🔥</div>
-            </div>
-            <div class="album-item" onclick="openNotebook('ev-zıyaretı.jpeg', 'Birlikte zamanın nasıl akıp gittiğini anlamadığımız o güzel gün... 💖')">
-                <img src="ev-zıyaretı.jpeg" alt="ev-zıyaretı">
-                <div class="item-desc">Ev Ziyareti 🏡</div>
-            </div>
-            <div class="album-item" onclick="openNotebook('ılk-tras.jpeg', 'Hayatımın en özel ve en unutulmaz anlarından biriydi. ✂️❤️')">
-                <img src="ılk-tras.jpeg" alt="ılk-tras">
-                <div class="item-desc">İlk Tıraş Hatırası ✂️</div>
-            </div>
-            <div class="album-item" onclick="openNotebook('amfı-opucuk.jpeg', 'Dünyanın en güzel, en masum öpücüğü... ✨💋')">
-                <img src="amfı-opucuk.jpeg" alt="amfı-opucuk">
-                <div class="item-desc">Amfi Öpücüğü 💋</div>
-            </div>
-<!-- SANA MEKTUBUM BÖLÜMÜ -->
-<div id="mektup" class="page" style="display:none;">
-    <h2>Sana Mesajım ✍️</h2>
-    <p>Buraya onun için yazmak istediğin tüm güzel kelimeleri doldurabilirsin aga...</p>
-</div>
+    <!-- SANA MEKTUBUM BÖLÜMÜ -->
+    <div id="mektup" class="page" style="display:none;">
+        <h2>Sana Mesajım ✍️</h2>
+        <p>Buraya onun için yazmak istediğin tüm güzel kelimeleri doldurabilirsin aga...</p>
+    </div> <!-- Eksik olan sayfa kapatma etiketi eklendi -->
 
-<!-- AÇILIR PEMBE DEFTER MODALI -->
-<div id="notebookModal" class="notebook-overlay" onclick="closeNotebook()">
-    <div class="notebook-page" onclick="event.stopPropagation()">
-        <span class="close-btn" onclick="closeNotebook()">&times;</span>
-        <div class="notebook-lines">
-            <div class="notebook-photo-wrapper">
-                <img id="modalImg" src="" alt="Büyütülmüş Görsel">
+    <!-- AÇILIR PEMBE DEFTER MODALI -->
+    <div id="notebookModal" class="notebook-overlay" onclick="closeNotebook()">
+        <div class="notebook-page" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeNotebook()">&times;</span>
+            <div class="notebook-lines">
+                <div class="notebook-photo-wrapper">
+                    <img id="modalImg" src="" alt="Büyütülmüş Görsel">
+                </div>
+                <p id="modalCaption" class="notebook-text"></p>
             </div>
-            <p id="modalCaption" class="notebook-text"></p>
         </div>
     </div>
-</div>
 
-<script>
-    // Menüyü Açıp Kapatan Kod
-    function toggleMenu() {
-        const sidebar = document.getElementById('sidebar');
-        if (sidebar.style.display === 'block') {
-            sidebar.style.display = 'none';
-        } else {
-            sidebar.style.display = 'block';
-        }
-    }
+    <!-- ANA MÜZİK OYNATICI (Toprak Yağmura) -->
+    <audio id="mainAudio" src="toprak-yagmura.mp3" loop></audio>
+    <div class="floating-player" id="floatingPlayer" onclick="toggleMainMusic()">
+        <span id="playerIcon">▶</span>
+    </div>
 
-    // Tıklanan Sayfayı Gösteren Kod
-    function showPage(pageId) {
-        const pages = document.querySelectorAll('.page');
-        pages.forEach(page => {
-            page.style.display = 'none';
-        });
-        const activePage = document.getElementById(pageId);
-        if (activePage) {
-            activePage.style.display = 'block';
-        }
-        // Sayfa seçilince menüyü otomatik kapatır
-        document.getElementById('sidebar').style.display = 'none';
-    }
-
-    // Defter Modalini Açan Kod
-    function openNotebook(imageSrc, captionText) {
-        const modal = document.getElementById('notebookModal');
-        const modalImg = document.getElementById('modalImg');
-        const modalCaption = document.getElementById('modalCaption');
-        modalImg.src = imageSrc;
-        modalCaption.textContent = captionText;
-        modal.style.display = 'flex';
-    }
-
-    // Defter Modalini Kapatan Kod
-    function closeNotebook() {
-        const modal = document.getElementById('notebookModal');
-        modal.style.display = 'none';
-    }
-
-    // Dijital Saliseli Sayaç Kodu (12 Aralık 2024 23:00)
-    const startDate = new Date(2024, 11, 12, 23, 0, 0);
-
-    function updateDigitalCounter() {
-        const now = new Date();
-        let years = now.getFullYear() - startDate.getFullYear();
-        let months = now.getMonth() - startDate.getMonth();
-        let days = now.getDate() - startDate.getDate();
-        let hoursDiff = now.getHours() - startDate.getHours();
-        let minutesDiff = now.getMinutes() - startDate.getMinutes();
-        let secondsDiff = now.getSeconds() - startDate.getSeconds();
-        let msDiff = now.getMilliseconds() - startDate.getMilliseconds();
-
-        if (hoursDiff < 0 || (hoursDiff === 0 && minutesDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff === 0 && msDiff < 0)) {
-            days--;
+    <script>
+        // 1. Menüyü Açıp Kapatan Kod
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.style.display === 'block') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
         }
 
-        if (days < 0) {
-            months--;
-            const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-            days += previousMonth.getDate();
+        // 2. Tıklanan Sayfayı Gösteren Kod
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.style.display = 'block';
+            }
+            document.getElementById('sidebar').style.display = 'none';
         }
 
-        if (months < 0) {
-            years--;
-            months += 12;
+        // 3. Defter Modalini Açıp Kapatan Kodlar
+        function openNotebook(imageSrc, captionText) {
+            const modal = document.getElementById('notebookModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modalImg.src = imageSrc;
+            modalCaption.textContent = captionText;
+            modal.style.display = 'flex';
         }
 
-        const totalMs = now - startDate;
-        const totalHours = Math.floor(totalMs / (1000 * 60 * 60));
-        const displayHours = totalHours % 24;
-        const displayMinutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
-        const displaySeconds = Math.floor((totalMs % (1000 * 60)) / 1000);
-        const displayCentiseconds = Math.floor((totalMs % 1000) / 10);
-
-        const fH = displayHours < 10 ? '0' + displayHours : displayHours;
-        const fM = displayMinutes < 10 ? '0' + displayMinutes : displayMinutes;
-        const fS = displaySeconds < 10 ? '0' + displaySeconds : displaySeconds;
-        const fCS = displayCentiseconds < 10 ? '0' + displayCentiseconds : displayCentiseconds;
-
-        const mainDisplay = document.getElementById('mainTimeDisplay');
-        const subDisplay = document.getElementById('subDateDisplay');
-
-        if (mainDisplay && subDisplay) {
-            // Tırnak hataları tamamen düzeltildi
-            mainDisplay.textContent = fH + ":" + fM + ":" + fS + ":" + fCS;
-            subDisplay.textContent = years + " Yıl " + months + " Ay " + days + " Gün";
+        function closeNotebook() {
+            const modal = document.getElementById('notebookModal');
+            modal.style.display = 'none';
         }
-    }<!-- ANA MÜZİK OYNATICI (Toprak Yağmura) -->
-<audio id="mainAudio" src="toprak-yagmura.mp3" loop></audio>
 
-<!-- SAĞ ALTAKİ SABİT PLAY BUTONU -->
-<div class="floating-player" id="floatingPlayer" onclick="toggleMainMusic()">
-    <span id="playerIcon">▶</span>
+        // 4. Müzik Çalar ve Ses Yönetim Sistemi
+        const mainAudio = document.getElementById('mainAudio');
+        const playerButton = document.getElementById('floatingPlayer');
+        const playerIcon = document.getElementById('playerIcon');
+        let currentCustomAudio = null;
 
-        </div>/* --- SAĞ ALTAKİ SABİT MÜZİK BUTONU --- */
-.floating-player {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 60px;
-    height: 60px;
-    background-color: #ff5c8a;
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(255, 92, 138, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 5000; /* Her şeyin üstünde dursun */
-    transition: transform 0.2s, background-color 0.2s;
-}
+        function toggleMainMusic() {
+            if (currentCustomAudio && !currentCustomAudio.paused) {
+                currentCustomAudio.pause();
+            }
 
-.floating-player:hover {
-    transform: scale(1.1);
-    background-color: #ff1744;
-}
+            if (mainAudio.paused) {
+                mainAudio.play();
+                playerIcon.textContent = "⏸";
+                playerButton.classList.add('playing');
+            } else {
+                mainAudio.pause();
+                playerIcon.textContent = "▶";
+                playerButton.classList.remove('playing');
+            }
+        }
 
-.floating-player span {
-    color: white;
-    font-size: 24px;
-    font-family: sans-serif;
-    user-select: none;
-    margin-left: 2px; /* Oynat simgesini ortalamak için küçük düzeltme */
-}
+        function playCustomSong(audioElementId) {
+            const customAudio = document.getElementById(audioElementId);
+            
+            if (!mainAudio.paused) {
+                mainAudio.pause();
+                playerIcon.textContent = "▶";
+                playerButton.classList.remove('playing');
+            }
+            
+            if (currentCustomAudio && currentCustomAudio !== customAudio) {
+                currentCustomAudio.pause();
+                currentCustomAudio.currentTime = 0;
+            }
+            
+            if (customAudio.paused) {
+                customAudio.play();
+                currentCustomAudio = customAudio;
+            } else {
+                customAudio.pause();
+            }
+        }
 
-/* Şarkı çalarken buton tatlı tatlı büyüyüp küçülsün (Ritim efekti) */
-.floating-player.playing {
-    animation: pulse 1.5s infinite;
-}
+        // 5. Dijital Saliseli Sayaç Kodu (12 Aralık 2024 23:00)
+        const startDate = new Date(2024, 11, 12, 23, 0, 0);
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
-}
+        function updateDigitalCounter() {
+            const now = new Date();
+            
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
 
+            let hoursDiff = now.getHours() - startDate.getHours();
+            let minutesDiff = now.getMinutes() - startDate.getMinutes();
+            let secondsDiff = now.getSeconds() - startDate.getSeconds();
+            let msDiff = now.getMilliseconds() - startDate.getMilliseconds();
 
+            if (hoursDiff < 0 || (hoursDiff === 0 && minutesDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff === 0 && msDiff < 0)) {
+                days--;
+            }
 
-    setInterval(updateDigitalCounter, 10);
-</script>
+            if (days < 0) {
+                months--;
+                const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += previousMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const totalMs = now - startDate;
+            const totalHours = Math.floor(totalMs / (1000 * 60 * 60));
+            const displayHours = totalHours % 24;
+            const displayMinutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
+            const displaySeconds = Math.floor((totalMs % (1000 * 60)) / 1000);
+            const displayCentiseconds = Math.floor((totalMs % 1000) / 10);
+
+            const fH = displayHours < 10 ? '0' + displayHours : displayHours;
+            const fM = displayMinutes < 10 ? '0' + displayMinutes : displayMinutes;
+            const fS = displaySeconds < 10 ? '0' + displaySeconds : displaySeconds;
+            const fCS = displayCentiseconds < 10 ? '0' + displayCentiseconds : displayCentiseconds;
+
+            const mainDisplay = document.getElementById('mainTimeDisplay');
+            const subDisplay = document.getElementById('subDateDisplay');
+            
+            if (mainDisplay && subDisplay) {
+                mainDisplay.textContent = fH + ":" + fM + ":" + fS + ":" + fCS;
+                subDisplay.textContent = years + " Yıl " + months + " Ay " + days + " Gün";
+            }
+        }
+
+        setInterval(updateDigitalCounter, 10);
+    </script>
