@@ -269,6 +269,110 @@ function updateDigitalCounter() {
 // Salisenin akıcı görünmesi için sayacı her 10 milisaniyede bir (ışık hızında) yeniliyoruz
 setInterval(updateDigitalCounter, 10);
 
+// ==========================================
+// 1. MENÜYÜ AÇIP KAPATAN VE SAYFA DEĞİŞTİREN KODLAR
+// ==========================================
+function toggleMenu() {
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar.style.display === 'block' || sidebar.style.display === 'flex') {
+    sidebar.style.display = 'none';
+  } else {
+    sidebar.style.display = 'block';
+  }
+}
+
+// Menüdeki linklere tıklanınca sadece seçilen sayfayı gösteren fonksiyon
+function showPage(pageId) {
+  // Sitedeki tüm sayfa bölümlerini bul ve gizle
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => {
+    page.style.display = 'none';
+  });
+  
+  // Tıklanan sayfayı görünür yap
+  const activePage = document.getElementById(pageId);
+  if (activePage) {
+    activePage.style.display = 'block';
+  }
+  
+  // Sevgilin menüden bir sayfaya tıklayınca menü otomatik olarak kapansın
+  document.getElementById('sidebar').style.display = 'none';
+}
+
+// ==========================================
+// 2. PEMBE DEFTER MODALINI AÇIP KAPATAN KOD
+// ==========================================
+function openNotebook(imageSrc, captionText) {
+  const modal = document.getElementById('notebookModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCaption = document.getElementById('modalCaption');
+  
+  modalImg.src = imageSrc;
+  modalCaption.textContent = captionText;
+  modal.style.display = 'flex';
+}
+
+// Boşluğa veya çarpıya basınca defter kapanır
+function closeNotebook() {
+  const modal = document.getElementById('notebookModal');
+  modal.style.display = 'none';
+}
+
+// ==========================================
+// 3. DIJITAL SALİSELİ SAYAÇ KODU
+// ==========================================
+const startDate = new Date(2024, 11, 12, 23, 0, 0); // 12 Aralık 2024 23:00
+
+function updateDigitalCounter() {
+  const now = new Date();
+  
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  let days = now.getDate() - startDate.getDate();
+
+  let hoursDiff = now.getHours() - startDate.getHours();
+  let minutesDiff = now.getMinutes() - startDate.getMinutes();
+  let secondsDiff = now.getSeconds() - startDate.getSeconds();
+  let msDiff = now.getMilliseconds() - startDate.getMilliseconds();
+
+  if (hoursDiff < 0 || (hoursDiff === 0 && minutesDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff < 0) || (hoursDiff === 0 && minutesDiff === 0 && secondsDiff === 0 && msDiff < 0)) {
+    days--;
+  }
+
+  if (days < 0) {
+    months--;
+    const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += previousMonth.getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const totalMs = now - startDate;
+  const totalHours = Math.floor(totalMs / (1000 * 60 * 60));
+  const displayHours = totalHours % 24;
+  const displayMinutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
+  const displaySeconds = Math.floor((totalMs % (1000 * 60)) / 1000);
+  const displayCentiseconds = Math.floor((totalMs % 1000) / 10);
+
+  const fH = displayHours < 10 ? '0' + displayHours : displayHours;
+  const fM = displayMinutes < 10 ? '0' + displayMinutes : displayMinutes;
+  const fS = displaySeconds < 10 ? '0' + displaySeconds : displaySeconds;
+  const fCS = displayCentiseconds < 10 ? '0' + displayCentiseconds : displayCentiseconds;
+
+  const mainDisplay = document.getElementById('mainTimeDisplay');
+  const subDisplay = document.getElementById('subDateDisplay');
+  
+  if (mainDisplay && subDisplay) {
+    mainDisplay.textContent = `${fH}:${fM}:${fS}:${fCS}`;
+    subDisplay.textContent = `${years} Yıl ${months} Ay ${days} Gün`;
+  }
+}
+
+setInterval(updateDigitalCounter, 10);
+
     </script>
 
 </body>
