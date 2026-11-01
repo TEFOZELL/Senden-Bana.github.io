@@ -400,7 +400,49 @@
 <!-- SAĞ ALTAKİ SABİT PLAY BUTONU -->
 <div class="floating-player" id="floatingPlayer" onclick="toggleMainMusic()">
     <span id="playerIcon">▶</span>
-</div>
+
+        </div>/* --- SAĞ ALTAKİ SABİT MÜZİK BUTONU --- */
+.floating-player {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: #ff5c8a;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(255, 92, 138, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 5000; /* Her şeyin üstünde dursun */
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.floating-player:hover {
+    transform: scale(1.1);
+    background-color: #ff1744;
+}
+
+.floating-player span {
+    color: white;
+    font-size: 24px;
+    font-family: sans-serif;
+    user-select: none;
+    margin-left: 2px; /* Oynat simgesini ortalamak için küçük düzeltme */
+}
+
+/* Şarkı çalarken buton tatlı tatlı büyüyüp küçülsün (Ritim efekti) */
+.floating-player.playing {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
 
 
     setInterval(updateDigitalCounter, 10);
